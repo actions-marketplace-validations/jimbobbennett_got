@@ -247,7 +247,7 @@ fn sparse_checkout_commit_and_push_preserve_unselected_paths() {
         String::from_utf8_lossy(&checkout_output.stderr)
     );
     assert!(String::from_utf8_lossy(&checkout_output.stdout)
-        .contains(&format!("Next: cd \"{}/apps/api\"", checkout.display())));
+        .contains(&format!("Next: cd \"{}\"", checkout.join("apps/api").display())));
     assert!(checkout.join("apps/api/handler.txt").is_file());
     assert!(!checkout.join("other/data.txt").exists());
     assert_eq!(text(git_at(&checkout, &["rev-parse", "HEAD"])), base_sha);
