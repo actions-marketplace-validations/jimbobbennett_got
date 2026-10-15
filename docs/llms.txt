@@ -20,8 +20,8 @@
 - [Release build workflow](../.github/workflows/release.yml)
 - [Linux installer](../scripts/install-linux.sh)
 - [Package targets and release instructions](../packaging/README.md)
-- [Cloudflare Worker configuration](../wrangler.jsonc) and
-  [deployment workflow](../.github/workflows/deploy-docs.yml)
+- [Cloudflare Worker configuration](../wrangler.jsonc), used by Cloudflare
+  Workers Builds to deploy the static docs
 
 ## Operational notes
 

@@ -18,9 +18,8 @@ automated workflows, read the agent guide before changing or pushing files.
 - [Repository agent instructions](AGENTS.md): contribution constraints and
   validation commands for agents working on this repository.
 - [Documentation site source](docs/index.html): concise user-facing overview.
-- [Cloudflare Worker configuration](wrangler.jsonc) and
-  [deployment workflow](.github/workflows/deploy-docs.yml): publish the docs at
-  `https://getgot.sh`.
+- [Cloudflare Worker configuration](wrangler.jsonc): deploy the static docs
+  from `docs/` to `https://getgot.sh` with Cloudflare Workers Builds.
 
 ## Implementation
 
