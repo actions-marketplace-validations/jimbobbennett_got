@@ -19,8 +19,9 @@ workflow to compile the Rust application, not as an installation method.
 3. `.github/workflows/release.yml` builds each target, creates archives and
    checksums, generates the Homebrew formula, and publishes them on a GitHub
    Release. After publication, it updates the Action version in `README.md`
-   and `docs/index.html` to the exact release tag and deploys the documentation
-   site.
+   and `docs/index.html` to the exact release tag and moves the floating major
+   Action tag (for example, `v0`) to the latest stable release. Documentation
+   deployment is handled by Cloudflare Workers Builds.
 4. The package declares the MIT license in `Cargo.toml` and includes the
    corresponding `LICENSE` file. The release workflow generates the three
    WinGet manifest files and attaches them to each release. Submit those files
