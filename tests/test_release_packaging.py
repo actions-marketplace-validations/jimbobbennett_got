@@ -110,6 +110,41 @@ class ReleasePackagingTests(unittest.TestCase):
             installer_manifest,
         )
 
+    def test_updates_action_version_in_readme_and_docs(self):
+        root = Path(self.temp_dir.name) / "repo"
+        (root / "docs").mkdir(parents=True)
+        (root / "README.md").write_text(
+            "  - uses: jimbobbennett/got@v1\n",
+            encoding="utf-8",
+        )
+        (root / "docs" / "index.html").write_text(
+            "  - uses: jimbobbennett/got@v0.1.0\n",
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "update_action_version.py"),
+                "--version",
+                "v0.2.0",
+                "--root",
+                str(root),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(
+            "jimbobbennett/got@v0.2.0",
+            (root / "README.md").read_text(encoding="utf-8"),
+        )
+        self.assertIn(
+            "jimbobbennett/got@v0.2.0",
+            (root / "docs" / "index.html").read_text(encoding="utf-8"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

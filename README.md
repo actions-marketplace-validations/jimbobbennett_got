@@ -56,7 +56,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v1
+  - uses: jimbobbennett/got@v0.1.0
     with:
       path: apps/api
 ```
