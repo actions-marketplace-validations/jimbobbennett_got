@@ -4,6 +4,7 @@
   "account_id": "d29f515070c526e16f443c06fc04145b",
   "compatibility_date": "2026-10-14",
   "workers_dev": false,
+  "previews": {},
   "assets": {
     "directory": "./docs",
     "not_found_handling": "404-page"
