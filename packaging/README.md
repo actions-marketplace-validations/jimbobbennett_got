@@ -8,7 +8,7 @@ workflow to compile the Rust application, not as an installation method.
 | Channel | Supported target | Release artifact |
 |---|---|---|
 | Homebrew | macOS Apple Silicon (ARM64) | `got-darwin-aarch64.tar.gz` and generated `got.rb` |
-| WinGet | Windows x64 and ARM64 | `got-windows-x86_64.zip`, `got-windows-aarch64.zip`, and generated manifests |
+| WinGet (coming soon) | Windows x64 and ARM64 | `got-windows-x86_64.zip`, `got-windows-aarch64.zip`, and generated manifests |
 | Linux installer | x86_64 and ARM64 | `got-linux-x86_64.tar.gz`, `got-linux-aarch64.tar.gz`, and `install.sh` |
 
 ## Creating a release
@@ -39,9 +39,10 @@ workflow to compile the Rust application, not as an installation method.
 
 ## Installing
 
-`got` requires Git 2.25 or later. Homebrew and WinGet install Git as a package
-dependency. The Linux installer checks that Git is available but does not
-install it; users installing the Windows ZIP directly must also install Git.
+`got` requires Git 2.25 or later. Homebrew installs Git as a package
+dependency; WinGet will do so once available. The Linux installer checks that
+Git is available but does not install it; users installing the Windows ZIP
+directly must also install Git.
 
 ### macOS Apple Silicon
 
@@ -54,16 +55,18 @@ brew install jimbobbennett/tap/got
 
 This package is intentionally ARM64-only.
 
-### Windows x64 and ARM64
+### Windows x64 and ARM64 (WinGet coming soon)
 
-After the generated manifest is accepted into the WinGet community source:
+WinGet availability is coming soon. After the generated manifest is accepted
+into the WinGet community source, users can install with:
 
 ```powershell
 winget install jimbobbennett.got
 ```
 
-Until then, the release contains architecture-specific ZIP files and
-versioned manifests for submission.
+Until then, Windows users can download the architecture-specific ZIP files
+from GitHub Releases. The release also contains versioned manifests for
+submission.
 
 For the initial registration, wait for a tagged release, download all three
 `jimbobbennett.got*.yaml` manifest assets into one directory, then validate and

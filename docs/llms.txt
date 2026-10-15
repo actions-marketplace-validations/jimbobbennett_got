@@ -39,9 +39,10 @@
 - Install on macOS with `brew install jimbobbennett/tap/got`.
 - Install on Linux with
   `curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh`.
-- Install on Windows with `winget install jimbobbennett.got`.
-- Homebrew and WinGet install Git as a dependency. On Linux, install Git
-  separately; the installer checks that it is available.
+- WinGet for Windows is coming soon. After a release is published, Windows
+  users can download the ZIP for their architecture from GitHub Releases.
+- Homebrew installs Git as a dependency; WinGet will do so when available.
+  Windows ZIP installs and the Linux installer require Git separately.
 
 ## FAQ
 

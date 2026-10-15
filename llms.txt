@@ -63,10 +63,10 @@ automated workflows, read the agent guide before changing or pushing files.
   supplied. It exposes the resolved commit SHA and checkout directory as
   outputs.
 - Release packages target macOS ARM64 via Homebrew
-  (`brew install jimbobbennett/tap/got` after the first tagged release),
-  Windows x64/ARM64 via WinGet, and Linux x86_64/ARM64 via a
-  checksum-verifying installer. Releases are built from version tags; the
-  repository does not yet publish a release.
-- WinGet manifests are withheld until a package license and matching license
-  file are declared. `cargo build` is used for release compilation, but Cargo
-  is not an end-user installation channel.
+  (`brew install jimbobbennett/tap/got`), Windows x64/ARM64 via release ZIPs
+  (WinGet is coming soon), and Linux x86_64/ARM64 via a checksum-verifying
+  installer. Releases are built from version tags.
+- The release workflow generates WinGet manifests, but the package will be
+  available through WinGet after it is submitted and accepted. `cargo build`
+  is used for release compilation, but Cargo is not an end-user installation
+  channel.

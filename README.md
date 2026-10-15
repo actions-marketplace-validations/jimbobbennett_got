@@ -9,16 +9,18 @@ normal Git commits and pushes.
 Prebuilt packages are published with tagged releases:
 
 - **macOS:** `brew install jimbobbennett/tap/got` (once the formula is published)
-- **Windows:** `winget install jimbobbennett.got` (once the manifest is accepted)
+- **Windows:** WinGet is coming soon; Windows ZIPs will be available from
+  [GitHub Releases](https://github.com/jimbobbennett/got/releases/latest).
 - **Linux:**
 
   ```sh
   curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh
   ```
 
-`got` requires Git 2.25 or later. Homebrew and WinGet install Git for you; on
-Linux, install Git with your distribution's package manager. See
-[release packaging](packaging/README.md) for package availability and details.
+`got` requires Git 2.25 or later. Homebrew installs Git automatically; WinGet
+will do so once available. Install Git separately when using a Windows ZIP or
+the Linux installer. See [release packaging](packaging/README.md) for package
+availability and details.
 
 ## Quick start
 
