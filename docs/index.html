@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="got makes fast, folder-scoped Git checkouts simple.">
+    <link rel="canonical" href="https://getgot.sh/">
+    <title>got — fast folder-scoped Git</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="got home"><span aria-hidden="true">&gt;_</span> got</a>
+      <nav aria-label="Main navigation">
+        <a href="#quick-start">Quick start</a>
+        <a href="#commands">CLI</a>
+        <a href="#actions">GitHub Action</a>
+        <a href="#benchmarks">Benchmarking</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">A SMALLER, FASTER, WAY TO WORK WITH BIG REPOS</p>
+        <h1 id="hero-title">Only check out<br><span>what you need.</span></h1>
+        <p class="hero-copy">Check out just what you need, save space and time, with normal commits and pushes.</p>
+        <div class="terminal" aria-label="Terminal example">
+          <p><span class="prompt">you@machine:~$</span> got checkout https://github.com/acme/mono.git apps/api</p>
+        </div>
+        <a class="button" href="#quick-start">Get started <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section id="quick-start" class="content-section" aria-labelledby="quick-title">
+        <p class="eyebrow">01 / QUICK START</p>
+        <h2 id="quick-title">Start with one command</h2>
+        <h3>Install <code>got</code></h3>
+        <div class="install-tabs">
+          <div class="install-tab-list" role="tablist" aria-label="Choose your operating system">
+            <button id="install-tab-macos" type="button" role="tab" aria-controls="install-panel-macos" aria-selected="true" tabindex="0">macOS</button>
+            <button id="install-tab-linux" type="button" role="tab" aria-controls="install-panel-linux" aria-selected="false" tabindex="-1">Linux</button>
+            <button id="install-tab-windows" type="button" role="tab" aria-controls="install-panel-windows" aria-selected="false" tabindex="-1">Windows</button>
+          </div>
+          <div id="install-panel-macos" role="tabpanel" aria-labelledby="install-tab-macos" tabindex="0">
+            <pre><code>brew install jimbobbennett/tap/got</code></pre>
+          </div>
+          <div id="install-panel-linux" role="tabpanel" aria-labelledby="install-tab-linux" tabindex="0" hidden>
+            <pre><code>curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh</code></pre>
+          </div>
+          <div id="install-panel-windows" role="tabpanel" aria-labelledby="install-tab-windows" tabindex="0" hidden>
+            <pre><code>winget install jimbobbennett.got</code></pre>
+          </div>
+        </div>
+        <p>Homebrew and WinGet install Git automatically. On Linux, install Git with your distribution’s package manager first; the installer checks that it is available.</p>
+        <h3>Check out a repository</h3>
+        <p>Check out a repository, either the whole tree or an optional folder.</p>
+        <pre><code>got checkout https://github.com/acme/mono.git apps/api
+got checkout https://github.com/acme/mono.git</code></pre>
+        <h4>Choose a branch or revision</h4>
+        <p>Use <code>--branch</code>, <code>--revision</code>, or <code>--directory</code> to choose a different base or destination.</p>
+        <pre><code>got checkout acme/mono
+got checkout acme/mono apps/api --branch main --revision &lt;commit&gt;</code></pre>
+        <h3>Use standard Git commands with <code>got</code> to commit and push</h3>
+        <pre><code>got commit -m "Update API"
+got push</code></pre>
+      </section>
+
+      <section id="commands" class="content-section split" aria-labelledby="commands-title">
+        <div>
+          <p class="eyebrow">02 / CLI REFERENCE</p>
+          <h2 id="commands-title">Git stays Git</h2>
+          <p><code>got status</code>, <code>got add</code>, and <code>got commit</code> call through to Git. <code>got push</code> passes explicit arguments through; a bare push publishes the current work branch and sets its upstream on first push.</p>
+          <p>Run <code>got --help</code> for the overview, <code>got checkout --help</code> for checkout options, or <code>got help push</code> for push behavior.</p>
+        </div>
+        <pre><code>got checkout &lt;remote&gt; [&lt;path&gt;] \
+  [--branch &lt;branch&gt;] \
+  [--revision &lt;commit&gt;] \
+  [--directory &lt;destination&gt;]
+
+got status [git options]
+got add &lt;pathspec&gt;...
+got commit [git options]
+got push [git arguments...]</code></pre>
+      </section>
+
+      <section id="actions" class="content-section" aria-labelledby="actions-title">
+        <p class="eyebrow">03 / GITHUB ACTIONS</p>
+        <h2 id="actions-title">Fast by default in CI</h2>
+        <p>Speed up your actions with a fast checkout of the entire repo, or only the folders you need.</p>
+        <pre><code>permissions:
+  contents: read
+
+steps:
+  - uses: jimbobbennett/got@v1
+    with:
+      path: apps/api
+      # Omit path to check out the entire repository
+      # additional-paths: |
+      #   .github
+      #   shared/build</code></pre>
+      </section>
+
+      <section id="benchmarks" class="content-section" aria-labelledby="benchmarks-title">
+        <p class="eyebrow">04 / BENCHMARKING</p>
+        <h2 id="benchmarks-title">Git vs. <code>got</code></h2>
+        <p>We benchmarked Git vs. <code>got</code> for LLVM.</p>
+
+        <div class="benchmark-grid">
+          <figure class="benchmark-chart">
+            <figcaption>Checkout time (lower is better)</figcaption>
+            <div class="chart-rows">
+              <div class="chart-row">
+                <span>Git / full tree</span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-git bar-time-git"></span></div>
+                <strong>13m 04s</strong>
+              </div>
+              <div class="chart-row">
+                <span><code>got</code> / full tree</span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-got bar-time-root"></span></div>
+                <strong>1m 01s</strong>
+              </div>
+              <div class="chart-row">
+                <span><code>got</code> / <code>clang</code></span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-sparse bar-time-clang"></span></div>
+                <strong>29s</strong>
+              </div>
+            </div>
+          </figure>
+
+          <figure class="benchmark-chart">
+            <figcaption>Disk usage (lower is better)</figcaption>
+            <div class="chart-rows">
+              <div class="chart-row">
+                <span>Git / full tree</span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-git bar-disk-git"></span></div>
+                <strong>6.1G</strong>
+              </div>
+              <div class="chart-row">
+                <span><code>got</code> / full tree</span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-got bar-disk-root"></span></div>
+                <strong>2.4G</strong>
+              </div>
+              <div class="chart-row">
+                <span><code>got</code> / <code>clang</code></span>
+                <div class="chart-track" aria-hidden="true"><span class="bar bar-sparse bar-disk-clang"></span></div>
+                <strong>479M</strong>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+      </section>
+
+      <section id="faq" class="content-section" aria-labelledby="faq-title">
+        <p class="eyebrow">05 / FAQ</p>
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>How does this work?</summary>
+            <p><code>got</code> wraps the sparse checkout feature of git to keep size down and speed up</p>
+          </details>
+          <details>
+            <summary>So it's just a wrapper around existing git functionality?</summary>
+            <p>Yes</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>got<span aria-hidden="true">_</span></span>
+      <span>Built on Git. Made for the part you need.</span>
+      <a href="https://github.com/jimbobbennett/got">Source on GitHub</a>
+    </footer>
+    <script>
+      const installTabs = Array.from(document.querySelectorAll('[role="tab"]'));
+
+      function activateInstallTab(tab, focus = false) {
+        installTabs.forEach((candidate) => {
+          const selected = candidate === tab;
+          candidate.setAttribute("aria-selected", String(selected));
+          candidate.tabIndex = selected ? 0 : -1;
+          document.getElementById(candidate.getAttribute("aria-controls")).hidden = !selected;
+        });
+
+        if (focus) tab.focus();
+      }
+
+      installTabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activateInstallTab(tab));
+        tab.addEventListener("keydown", (event) => {
+          let nextIndex;
+          if (event.key === "ArrowRight") nextIndex = (index + 1) % installTabs.length;
+          if (event.key === "ArrowLeft") nextIndex = (index - 1 + installTabs.length) % installTabs.length;
+          if (event.key === "Home") nextIndex = 0;
+          if (event.key === "End") nextIndex = installTabs.length - 1;
+
+          if (nextIndex !== undefined) {
+            event.preventDefault();
+            activateInstallTab(installTabs[nextIndex], true);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
