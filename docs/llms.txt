@@ -1,0 +1,57 @@
+# got
+
+> `got` provides shallow, optionally sparse Git checkouts through a cross-platform
+> Rust CLI and GitHub Action. Commits remain ordinary full-repository Git commits.
+
+## Documentation
+
+- [Quick start and installation](../README.md)
+- [Agent usage guide](agent-guide.md)
+- [Project requirements and feasibility](../PRD.md)
+- [Repository instructions for coding agents](../AGENTS.md)
+- [Release packaging guide](../packaging/README.md)
+
+## Key implementation references
+
+- [CLI implementation](../src/main.rs)
+- [GitHub Action inputs and outputs](../action.yml)
+- [Action checkout script](../action/checkout.sh)
+- [Cross-platform tests](../tests/checkout.rs)
+- [Release build workflow](../.github/workflows/release.yml)
+- [Linux installer](../scripts/install-linux.sh)
+- [Package targets and release instructions](../packaging/README.md)
+- [Cloudflare Worker configuration](../wrangler.jsonc) and
+  [deployment workflow](../.github/workflows/deploy-docs.yml)
+
+## Operational notes
+
+- `got checkout <remote> [<path>]` requires a remote and accepts an optional
+  repository-relative path. Omitting the path checks out all tracked files;
+  supplying it enables sparse checkout. Both modes use shallow history.
+- Checkouts are shallow; a supplied path enables sparse checkout. Blob
+  filtering is used when supported, with a warning if ignored or rejected.
+- Cone-mode sparse checkout includes repository-root and parent-directory
+  files. Commits preserve the full repository tree.
+- `got status`, `got add`, and `got commit` pass through to native Git.
+- Bare `got push` publishes the work branch, configures its upstream on first
+  push, and warns if the base branch advanced. It does not rebase, force-push,
+  update the base branch, or create a pull request.
+- Install on macOS with `brew install jimbobbennett/tap/got`.
+- Install on Linux with
+  `curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh`.
+- WinGet for Windows is coming soon. After a release is published, Windows
+  users can download the ZIP for their architecture from GitHub Releases.
+- Homebrew installs Git as a dependency; WinGet will do so when available.
+  Windows ZIP installs and the Linux installer require Git separately.
+
+## FAQ
+
+- **How does this work?** `got` wraps the sparse checkout feature of git to
+  keep size down and speed up
+- **So it's just a wrapper around existing git functionality?** Yes
+
+## Benchmarking
+
+- We benchmarked Git vs. `got` for LLVM. Git checked out the full tree in
+  13m04s and used 6.1G; `got` checked out the full tree in 1m01s and used
+  2.4G; `got` checked out `clang` in 29s and used 479M.

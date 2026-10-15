@@ -1,0 +1,48 @@
+name: got checkout
+description: Fast shallow checkout of a repository or selected directories
+inputs:
+  path:
+    description: Optional repository-relative directory to check out; omit to check out the whole repository
+    required: false
+  repository:
+    description: owner/repository; defaults to the workflow repository
+    required: false
+  ref:
+    description: Branch, tag, or commit to check out
+    required: false
+  fetch-depth:
+    description: Number of commits to fetch (must be greater than zero)
+    required: false
+    default: "1"
+  directory:
+    description: Checkout destination under GITHUB_WORKSPACE
+    required: false
+    default: "."
+  additional-paths:
+    description: Newline-separated additional repository-relative paths
+    required: false
+  token:
+    description: GitHub token used for private repositories
+    required: false
+outputs:
+  sha:
+    description: Resolved commit SHA
+    value: ${{ steps.checkout.outputs.sha }}
+  directory:
+    description: Absolute checkout directory
+    value: ${{ steps.checkout.outputs.directory }}
+runs:
+  using: composite
+  steps:
+    - id: checkout
+      shell: bash
+      env:
+        GOT_REPOSITORY: ${{ inputs.repository || github.repository }}
+        GOT_REF: ${{ inputs.ref }}
+        GOT_PATH: ${{ inputs.path }}
+        GOT_ADDITIONAL_PATHS: ${{ inputs.additional-paths }}
+        GOT_DIRECTORY: ${{ inputs.directory }}
+        GOT_FETCH_DEPTH: ${{ inputs.fetch-depth }}
+        GOT_TOKEN: ${{ inputs.token || github.token }}
+        GOT_SERVER_URL: ${{ github.server_url }}
+      run: bash "$GITHUB_ACTION_PATH/action/checkout.sh"

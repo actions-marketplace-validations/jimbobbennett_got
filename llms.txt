@@ -1,0 +1,72 @@
+# got
+
+> `got` is a cross-platform Rust CLI and GitHub Action for shallow, sparse Git
+> checkouts. It uses native Git, preserving normal commits and repository trees.
+
+Use this file to orient AI agents and other language-model clients. For safe
+automated workflows, read the agent guide before changing or pushing files.
+
+## Core documentation
+
+- [README](README.md): installation, requirements, and quick start.
+- [Product requirements](PRD.md): scope, behavior, technical feasibility, and
+  design decisions.
+- [Agent usage guide](docs/agent-guide.md): safe CLI and Action workflows for
+  coding agents.
+- [Documentation-site llms.txt](docs/llms.txt): machine-readable links for the
+  published documentation.
+- [Repository agent instructions](AGENTS.md): contribution constraints and
+  validation commands for agents working on this repository.
+- [Documentation site source](docs/index.html): concise user-facing overview.
+- [Cloudflare Worker configuration](wrangler.jsonc) and
+  [deployment workflow](.github/workflows/deploy-docs.yml): publish the docs at
+  `https://getgot.sh`.
+
+## Implementation
+
+- [CLI source](src/main.rs): command parsing, checkout, Git pass-through, and
+  push behavior.
+- [Integration tests](tests/checkout.rs): local-remote checkout, commit, and
+  push coverage.
+- [GitHub Action metadata](action.yml): inputs, outputs, and execution setup.
+- [GitHub Action script](action/checkout.sh): shallow sparse fetch and path
+  validation.
+- [Cross-platform CI](.github/workflows/ci.yml): Rust and Action checks on
+  Ubuntu, macOS, and Windows.
+- [Release workflow](.github/workflows/release.yml): builds platform archives
+  and publishes GitHub Release assets.
+- [Packaging instructions](packaging/README.md): supported install channels
+  and release steps.
+- [Linux installer](scripts/install-linux.sh): downloads and verifies the
+  Linux x86_64 or ARM64 release archive.
+- [Linux installer tests](tests/test_linux_installer.sh): exercises both
+  supported architectures and rejects a tampered archive.
+
+## Important behavior
+
+- `got checkout <remote> [<path>]` requires a remote and creates a separate
+  work branch at the latest tip of the remote's default branch unless another
+  branch or reachable revision is selected. Omit the optional path for a full
+  working tree, or supply a repository-relative path for a sparse checkout.
+- Checkout is shallow; a supplied path enables sparse checkout. Blob filtering
+  is used when supported; unsupported filtering produces a warning and keeps
+  the checkout shallow.
+- Cone-mode sparse checkout also materializes root files and parent-directory
+  files required by Git. Commits remain ordinary full-repository commits.
+- `got status`, `got add`, and `got commit` pass arguments to native Git.
+- `got push` with arguments passes through to Git. Bare `got push` pushes the
+  work branch, sets its upstream on first push, and warns if the recorded base
+  branch advanced. It never rebases or force-pushes automatically and does not
+  create a pull request.
+- The Action accepts optional `path` and `additional-paths` inputs, defaults
+  to depth 1, and checks out the full repository when neither path input is
+  supplied. It exposes the resolved commit SHA and checkout directory as
+  outputs.
+- Release packages target macOS ARM64 via Homebrew
+  (`brew install jimbobbennett/tap/got`), Windows x64/ARM64 via release ZIPs
+  (WinGet is coming soon), and Linux x86_64/ARM64 via a checksum-verifying
+  installer. Releases are built from version tags.
+- The release workflow generates WinGet manifests, but the package will be
+  available through WinGet after it is submitted and accepted. `cargo build`
+  is used for release compilation, but Cargo is not an end-user installation
+  channel.
