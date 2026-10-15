@@ -40,7 +40,7 @@
           <div class="install-tab-list" role="tablist" aria-label="Choose your operating system">
             <button id="install-tab-macos" type="button" role="tab" aria-controls="install-panel-macos" aria-selected="true" tabindex="0">macOS</button>
             <button id="install-tab-linux" type="button" role="tab" aria-controls="install-panel-linux" aria-selected="false" tabindex="-1">Linux</button>
-            <button id="install-tab-windows" type="button" role="tab" aria-controls="install-panel-windows" aria-selected="false" tabindex="-1">Windows</button>
+            <button id="install-tab-windows" type="button" role="tab" aria-controls="install-panel-windows" aria-selected="false" tabindex="-1">Windows <span class="coming-soon-badge">Coming soon</span></button>
           </div>
           <div id="install-panel-macos" role="tabpanel" aria-labelledby="install-tab-macos" tabindex="0">
             <pre><code>brew install jimbobbennett/tap/got</code></pre>
@@ -52,7 +52,6 @@
             <pre><code>winget install jimbobbennett.got</code></pre>
           </div>
         </div>
-        <p>Homebrew installs Git automatically; the WinGet package will do so when available. The Linux installer requires Git to be installed separately.</p>
         <h3>Check out a repository</h3>
         <p>Check out a repository, either the whole tree or an optional folder.</p>
         <pre><code>got checkout https://github.com/acme/mono.git apps/api
