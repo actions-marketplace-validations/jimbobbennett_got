@@ -1,0 +1,52 @@
+name: Commit Prefix
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: read
+
+jobs:
+  commit-prefix:
+    name: Commit prefix
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check PR title and commit subjects
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          pattern='^[a-z][a-z0-9-]*(\([^)]+\))?!?: .+'
+          validate_subject() {
+            local label="$1"
+            local subject="$2"
+            if [[ ! "$subject" =~ $pattern ]]; then
+              printf '::error::%s must match Conventional Commits: type(scope)!: subject.\n' "$label"
+              return 1
+            fi
+          }
+
+          validate_subject "Pull request title" "$PR_TITLE"
+
+          subjects="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/commits" \
+              | jq -r 'add | .[] | .commit.message | split("\n")[0]'
+          )"
+
+          while IFS= read -r subject; do
+            [[ -z "$subject" ]] && continue
+            if ! validate_subject "Commit subject" "$subject"; then
+              exit 1
+            fi
+          done <<< "$subjects"
