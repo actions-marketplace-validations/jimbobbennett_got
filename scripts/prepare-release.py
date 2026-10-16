@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 import tomllib
 
-REPOSITORY = "jimbobbennett/got"
+REPOSITORY = "cloudless-ai/got"
 WINDOWS_ASSETS = (
     ("x64", "got-windows-x86_64.zip"),
     ("arm64", "got-windows-aarch64.zip"),
@@ -62,7 +62,7 @@ end
 
 
 def winget_manifests(version: str, license_name: str, checksums: dict[str, str]) -> dict[str, str]:
-    identifier = "jimbobbennett.got"
+    identifier = "CloudlessAI.Got"
     schema_version = "1.12.0"
     common = [
         f"PackageIdentifier: {identifier}",
@@ -72,7 +72,7 @@ def winget_manifests(version: str, license_name: str, checksums: dict[str, str])
         f"# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.{schema_version}.schema.json",
         *common,
         "PackageLocale: en-US",
-        "Publisher: jimbobbennett",
+        "Publisher: Cloudless AI",
         "PackageName: got",
         "ShortDescription: Fast, folder-scoped Git checkouts",
         f"License: {yaml_string(license_name)}",

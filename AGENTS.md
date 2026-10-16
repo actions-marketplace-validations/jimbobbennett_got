@@ -56,3 +56,18 @@ also exercises the CLI and Action on Ubuntu, macOS, and Windows.
 Update `README.md`, `docs/index.html`, `docs/agent-guide.md`, `llms.txt`, and
 `packaging/README.md` when user-visible behavior or install targets change.
 Keep command help in `src/main.rs` aligned with those documents.
+
+## Pull requests and commit messages
+
+The commit-prefix check validates both pull request titles and every commit
+subject. Use Conventional Commit format:
+
+```text
+type(scope)!: subject
+```
+
+The scope and `!` are optional; the type must be lowercase. For example:
+`feat: add option`, `fix(checkout): handle missing Git`, or
+`chore: update release references`. Use `feat`, `fix`, or `!` for changes
+that should affect Release Please versioning; types such as `docs` and `chore`
+do not trigger a release.

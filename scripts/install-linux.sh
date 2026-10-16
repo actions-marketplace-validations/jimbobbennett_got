@@ -23,10 +23,10 @@ command -v tar >/dev/null 2>&1 || fail "tar is required"
 
 version="${GOT_VERSION:-latest}"
 case "$version" in
-  latest) base_url="https://github.com/jimbobbennett/got/releases/latest/download" ;;
+  latest) base_url="https://github.com/cloudless-ai/got/releases/latest/download" ;;
   *[!A-Za-z0-9._-]* | "") fail "GOT_VERSION must be a release version such as 0.1.0" ;;
-  v*) base_url="https://github.com/jimbobbennett/got/releases/download/$version" ;;
-  *) base_url="https://github.com/jimbobbennett/got/releases/download/v$version" ;;
+  v*) base_url="https://github.com/cloudless-ai/got/releases/download/$version" ;;
+  *) base_url="https://github.com/cloudless-ai/got/releases/download/v$version" ;;
 esac
 
 install_dir="${GOT_INSTALL_DIR:-${HOME:?HOME must be set}/.local/bin}"

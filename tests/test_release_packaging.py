@@ -74,26 +74,31 @@ class ReleasePackagingTests(unittest.TestCase):
         )
         formula = (self.dist / "got.rb").read_text()
         self.assertIn("got-darwin-aarch64.tar.gz", formula)
+        self.assertIn("https://github.com/cloudless-ai/got/releases/download/v0.1.0/", formula)
         self.assertIn(self.contents["got-darwin-aarch64.tar.gz"], formula)
         self.assertIn("Hardware::CPU.arm?", formula)
         self.assertIn('depends_on "git"', formula)
         self.assertIn('license "MIT"', formula)
-        self.assertFalse((self.dist / "jimbobbennett.got.installer.yaml").exists())
+        self.assertFalse((self.dist / "CloudlessAI.Got.installer.yaml").exists())
         self.assertIn("WinGet manifests were not generated", result.stdout)
 
     def test_generates_winget_manifests_for_both_windows_architectures(self):
         result = self.run_generator("MIT")
         self.assertEqual(result.returncode, 0, result.stderr)
-        installer_manifest = (self.dist / "jimbobbennett.got.installer.yaml").read_text()
+        installer_manifest = (self.dist / "CloudlessAI.Got.installer.yaml").read_text()
         self.assertIn("Architecture: x64", installer_manifest)
         self.assertIn("Architecture: arm64", installer_manifest)
         self.assertIn(self.contents["got-windows-x86_64.zip"], installer_manifest)
         self.assertIn(self.contents["got-windows-aarch64.zip"], installer_manifest)
         self.assertEqual(installer_manifest.count("      - PackageIdentifier: Git.Git"), 2)
         self.assertEqual(installer_manifest.count("        MinimumVersion: 2.25.0"), 2)
-        locale_manifest = (self.dist / "jimbobbennett.got.locale.en-US.yaml").read_text()
+        locale_manifest = (self.dist / "CloudlessAI.Got.locale.en-US.yaml").read_text()
         self.assertIn('License: "MIT"', locale_manifest)
-        version_manifest = (self.dist / "jimbobbennett.got.yaml").read_text()
+        self.assertIn("Publisher: Cloudless AI", locale_manifest)
+        self.assertIn("PackageIdentifier: CloudlessAI.Got", locale_manifest)
+        self.assertIn('PackageUrl: "https://github.com/cloudless-ai/got"', locale_manifest)
+        self.assertIn("https://github.com/cloudless-ai/got/releases/download/v0.1.0/", installer_manifest)
+        version_manifest = (self.dist / "CloudlessAI.Got.yaml").read_text()
         self.assertIn("ManifestVersion: 1.12.0", version_manifest)
         self.assertIn("ManifestVersion: 1.12.0", locale_manifest)
         self.assertIn("ManifestVersion: 1.12.0", installer_manifest)
@@ -114,11 +119,11 @@ class ReleasePackagingTests(unittest.TestCase):
         root = Path(self.temp_dir.name) / "repo"
         (root / "docs").mkdir(parents=True)
         (root / "README.md").write_text(
-            "  - uses: jimbobbennett/got@v1\n",
+            "  - uses: cloudless-ai/got@v1\n",
             encoding="utf-8",
         )
         (root / "docs" / "index.html").write_text(
-            "  - uses: jimbobbennett/got@v0.1.0\n",
+            "  - uses: cloudless-ai/got@v0.1.0\n",
             encoding="utf-8",
         )
         result = subprocess.run(
@@ -137,11 +142,11 @@ class ReleasePackagingTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(
-            "jimbobbennett/got@v0.2.0",
+            "cloudless-ai/got@v0.2.0",
             (root / "README.md").read_text(encoding="utf-8"),
         )
         self.assertIn(
-            "jimbobbennett/got@v0.2.0",
+            "cloudless-ai/got@v0.2.0",
             (root / "docs" / "index.html").read_text(encoding="utf-8"),
         )
 

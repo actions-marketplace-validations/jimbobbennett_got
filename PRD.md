@@ -149,7 +149,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v1
+  - uses: cloudless-ai/got@v1
     with:
       path: apps/api
 ```

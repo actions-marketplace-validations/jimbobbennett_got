@@ -62,7 +62,7 @@ automated workflows, read the agent guide before changing or pushing files.
   supplied. It exposes the resolved commit SHA and checkout directory as
   outputs.
 - Install on macOS with Homebrew
-  (`brew install jimbobbennett/tap/got`) or Linux x86_64/ARM64 with the
+  (`brew install cloudless-ai/tap/got`) or Linux x86_64/ARM64 with the
   checksum-verifying installer.
 - The Windows WinGet package is coming soon. The release workflow generates
   WinGet manifests; the package will be available through WinGet after it is

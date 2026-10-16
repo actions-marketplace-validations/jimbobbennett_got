@@ -43,13 +43,13 @@
             <button id="install-tab-windows" type="button" role="tab" aria-controls="install-panel-windows" aria-selected="false" tabindex="-1">Windows <span class="coming-soon-badge">Coming soon</span></button>
           </div>
           <div id="install-panel-macos" role="tabpanel" aria-labelledby="install-tab-macos" tabindex="0">
-            <pre><code>brew install jimbobbennett/tap/got</code></pre>
+            <pre><code>brew install cloudless-ai/tap/got</code></pre>
           </div>
           <div id="install-panel-linux" role="tabpanel" aria-labelledby="install-tab-linux" tabindex="0" hidden>
-            <pre><code>curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh</code></pre>
+            <pre><code>curl -fsSL https://github.com/cloudless-ai/got/releases/latest/download/install.sh | sh</code></pre>
           </div>
           <div id="install-panel-windows" role="tabpanel" aria-labelledby="install-tab-windows" tabindex="0" hidden>
-            <pre><code>winget install jimbobbennett.got</code></pre>
+            <pre><code>winget install CloudlessAI.Got</code></pre>
           </div>
         </div>
         <h3>Check out a repository</h3>
@@ -91,7 +91,7 @@ got push [git arguments...]</code></pre>
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v0.2.1
+  - uses: cloudless-ai/got@v0.2.1
     with:
       path: apps/api
       # Omit path to check out the entire repository
@@ -170,7 +170,7 @@ steps:
     <footer class="site-footer">
       <span>got<span aria-hidden="true">_</span></span>
       <span>Built on Git. Made for the part you need.</span>
-      <a href="https://github.com/jimbobbennett/got">Source on GitHub</a>
+      <a href="https://github.com/cloudless-ai/got">Source on GitHub</a>
     </footer>
     <script>
       const installTabs = Array.from(document.querySelectorAll('[role="tab"]'));

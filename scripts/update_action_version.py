@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 
 ACTION_REFERENCE = re.compile(
-    r"(?P<prefix>jimbobbennett/got@)v[0-9A-Za-z][A-Za-z0-9._+-]*"
+    r"(?P<prefix>cloudless-ai/got@)v[0-9A-Za-z][A-Za-z0-9._+-]*"
 )
 DOC_FILES = ("README.md", "docs/index.html")
 VERSION_PATTERN = re.compile(

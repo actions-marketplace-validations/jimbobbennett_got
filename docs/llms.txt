@@ -36,9 +36,9 @@
 - Bare `got push` publishes the work branch, configures its upstream on first
   push, and warns if the base branch advanced. It does not rebase, force-push,
   update the base branch, or create a pull request.
-- Install on macOS with `brew install jimbobbennett/tap/got`.
+- Install on macOS with `brew install cloudless-ai/tap/got`.
 - Install on Linux with
-  `curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh`.
+  `curl -fsSL https://github.com/cloudless-ai/got/releases/latest/download/install.sh | sh`.
 - WinGet for Windows is coming soon.
 
 ## FAQ

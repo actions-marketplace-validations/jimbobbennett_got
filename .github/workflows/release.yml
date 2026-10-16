@@ -129,19 +129,19 @@ jobs:
           GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         run: |
           formula_sha=""
-          if formula_sha="$(gh api repos/jimbobbennett/homebrew-tap/contents/Formula/got.rb --jq .sha 2>/dev/null)"; then
+          if formula_sha="$(gh api repos/cloudless-ai/homebrew-tap/contents/Formula/got.rb --jq .sha 2>/dev/null)"; then
             echo "Updating the existing Homebrew formula."
           else
             echo "Creating the initial Homebrew formula in the tap."
           fi
           formula_content="$(base64 -w0 dist/got.rb)"
           if [ -n "$formula_sha" ]; then
-            gh api --silent --method PUT repos/jimbobbennett/homebrew-tap/contents/Formula/got.rb \
+            gh api --silent --method PUT repos/cloudless-ai/homebrew-tap/contents/Formula/got.rb \
               --field message="Update got formula for ${RELEASE_TAG}" \
               --field content="$formula_content" \
               --field sha="$formula_sha"
           else
-            gh api --silent --method PUT repos/jimbobbennett/homebrew-tap/contents/Formula/got.rb \
+            gh api --silent --method PUT repos/cloudless-ai/homebrew-tap/contents/Formula/got.rb \
               --field message="Add got formula for ${RELEASE_TAG}" \
               --field content="$formula_content"
           fi

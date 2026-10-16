@@ -8,13 +8,13 @@ normal Git commits and pushes.
 
 Prebuilt packages are published with tagged releases:
 
-- **macOS:** `brew install jimbobbennett/tap/got`
+- **macOS:** `brew install cloudless-ai/tap/got`
 - **Windows:** WinGet is coming soon; Windows ZIPs will be available from
-  [GitHub Releases](https://github.com/jimbobbennett/got/releases/latest).
+  [GitHub Releases](https://github.com/cloudless-ai/got/releases/latest).
 - **Linux:**
 
   ```sh
-  curl -fsSL https://github.com/jimbobbennett/got/releases/latest/download/install.sh | sh
+  curl -fsSL https://github.com/cloudless-ai/got/releases/latest/download/install.sh | sh
   ```
 
 `got` requires Git 2.25 or later. Homebrew installs Git automatically; WinGet
@@ -59,7 +59,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v0.2.1
+  - uses: cloudless-ai/got@v0.2.1
     with:
       path: apps/api
 ```

@@ -31,7 +31,7 @@ Windows.
 
 - Open an issue first for substantial behavior changes; small fixes and
   documentation improvements can go straight to a pull request.
-- Use Conventional Commit titles and commit subjects in the form
+- Use Conventional Commit pull request titles and commit subjects in the form
   `type(scope)!: subject` (for example, `feat: add option` or
   `fix(checkout): handle missing Git`). The check accepts standard types;
   `feat`, `fix`, and breaking changes marked with `!` affect Release Please
