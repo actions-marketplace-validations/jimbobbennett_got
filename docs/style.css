@@ -439,6 +439,32 @@ code {
   font-size: 0.85rem;
 }
 
+.github-star-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  border: 2px solid var(--green);
+  background: var(--green);
+  color: #102012;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.github-star-link:hover {
+  border-color: var(--amber);
+  background: var(--amber);
+  color: #211a0b;
+}
+
+.github-star-link svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  fill: currentColor;
+}
+
 @media (max-width: 760px) {
   .site-header,
   .site-footer {
