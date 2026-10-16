@@ -16,7 +16,9 @@ workflow to compile the Rust application, not as an installation method.
 1. Use [Conventional Commit](https://www.conventionalcommits.org/) messages
    such as `feat: add checkout option` or `fix: handle missing Git`. Release
    Please opens a release PR that updates `Cargo.toml`, `Cargo.lock`, and the
-   changelog. The CLI reports the Cargo package version with `got --version`.
+   changelog. The Release Please workflow can also be manually dispatched from
+   GitHub Actions to re-evaluate release state. The CLI reports the Cargo
+   package version with `got --version`.
 2. Review and merge the release PR. Release Please creates the version tag and
    GitHub Release; `.github/workflows/release-please.yml` then dispatches the
    packaging workflow for that tag.

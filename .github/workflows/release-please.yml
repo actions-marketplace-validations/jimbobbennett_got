@@ -9,6 +9,7 @@ on:
       - 'docs/**'
       - 'llms.txt'
       - 'wrangler.jsonc'
+  workflow_dispatch:
 
 permissions:
   actions: write
