@@ -35,15 +35,6 @@ workflow to compile the Rust application, not as an installation method.
    `winget install jimbobbennett.got` available in the community source. Until
    the manifests are accepted, Windows users can download the architecture-
    specific ZIP files directly.
-5. To publish Homebrew updates automatically, create a public
-   `jimbobbennett/homebrew-tap` repository, then add a fine-grained personal
-   access token as the `HOMEBREW_TAP_TOKEN` Actions secret in
-   `jimbobbennett/got`. Grant that token `Contents: read and write` access only
-   to `homebrew-tap`. Each release creates or updates `Formula/got.rb` in the
-   tap (including the initial commit if the repository is empty). If the
-   secret is absent, releases still publish normally and the workflow warns
-   that the tap was not updated.
-
 ## Installing
 
 `got` requires Git 2.25 or later. Homebrew installs Git as a package
@@ -53,8 +44,7 @@ directly must also install Git.
 
 ### macOS Apple Silicon
 
-After the tap repository and `HOMEBREW_TAP_TOKEN` are configured and a release
-has populated the formula, install with:
+Install with:
 
 ```sh
 brew install jimbobbennett/tap/got

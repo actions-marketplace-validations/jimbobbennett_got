@@ -8,7 +8,7 @@ normal Git commits and pushes.
 
 Prebuilt packages are published with tagged releases:
 
-- **macOS:** `brew install jimbobbennett/tap/got` (once the formula is published)
+- **macOS:** `brew install jimbobbennett/tap/got`
 - **Windows:** WinGet is coming soon; Windows ZIPs will be available from
   [GitHub Releases](https://github.com/jimbobbennett/got/releases/latest).
 - **Linux:**
