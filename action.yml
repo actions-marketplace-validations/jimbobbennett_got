@@ -1,5 +1,8 @@
 name: got checkout
 description: Fast shallow checkout of a repository or selected directories
+branding:
+  icon: folder
+  color: green
 inputs:
   path:
     description: Optional repository-relative directory to check out; omit to check out the whole repository
