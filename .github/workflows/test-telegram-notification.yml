@@ -1,0 +1,67 @@
+name: Test Telegram notification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-test-message:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Send one test message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          node <<'NODE'
+          const token = process.env.TELEGRAM_BOT_TOKEN;
+          const chatId = process.env.TELEGRAM_CHAT_ID;
+
+          if (!token || !chatId) {
+            console.error(
+              "Set the TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID repository secrets before running this workflow.",
+            );
+            process.exit(1);
+          }
+
+          async function sendTestMessage() {
+            let response;
+            try {
+              response = await fetch(
+                `https://api.telegram.org/bot${token}/sendMessage`,
+                {
+                  method: "POST",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify({
+                    chat_id: chatId,
+                    text: "Test notification: got launch reminders are connected.",
+                  }),
+                },
+              );
+            } catch {
+              throw new Error("Could not connect to the Telegram Bot API.");
+            }
+
+            let result;
+            try {
+              result = await response.json();
+            } catch {
+              throw new Error("Telegram returned an unreadable response.");
+            }
+
+            if (!response.ok || result.ok !== true) {
+              throw new Error(
+                `Telegram rejected the message (HTTP ${response.status}${result.description ? `: ${result.description}` : ""}).`,
+              );
+            }
+          }
+
+          sendTestMessage()
+            .then(() => console.log("Test notification sent to Telegram."))
+            .catch((error) => {
+              console.error(error.message);
+              process.exitCode = 1;
+            });
+          NODE
