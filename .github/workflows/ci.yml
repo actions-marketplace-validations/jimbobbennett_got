@@ -2,7 +2,17 @@ name: Rust CI
 
 on:
   push:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'llms.txt'
+      - 'wrangler.jsonc'
   pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'llms.txt'
+      - 'wrangler.jsonc'
   workflow_dispatch:
 
 permissions:
