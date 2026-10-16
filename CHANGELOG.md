@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/cloudless-ai/got/compare/v0.2.1...v0.3.0) (2026-10-16)
+
+
+### Features
+
+* test Release Please flow ([#19](https://github.com/cloudless-ai/got/issues/19)) ([e98b98d](https://github.com/cloudless-ai/got/commit/e98b98d743ed9c90c8dc188da720fbb796d7e135))
+
 ## [0.2.1](https://github.com/cloudless-ai/got/compare/v0.2.0...v0.2.1) (2026-10-16)
 
 
