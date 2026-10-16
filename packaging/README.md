@@ -26,6 +26,8 @@ workflow to compile the Rust application, not as an installation method.
    `docs/index.html` to the exact release tag and moves the floating major
    Action tag (for example, `v0`) to the latest stable release. Documentation
    deployment is handled by Cloudflare Workers Builds.
+   To retry or repair an existing release, manually dispatch
+   `release.yml` from `main` and set `release_tag` to its version tag.
 4. The package declares the MIT license in `Cargo.toml` and includes the
    corresponding `LICENSE` file. The release workflow generates the three
    WinGet manifest files and attaches them to each release. Submit those files

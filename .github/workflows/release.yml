@@ -5,6 +5,11 @@ on:
     tags:
       - "v*.*.*"
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to rebuild or repair (defaults to the selected ref)
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -38,6 +43,8 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: jimbobbennett/got@v0.1.1
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
@@ -79,6 +86,8 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: jimbobbennett/got@v0.1.1
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
       - uses: actions/download-artifact@v4
         with:
           path: dist
@@ -87,7 +96,7 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_release_packaging.py'
       - name: Prepare release assets
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           cp scripts/install-linux.sh dist/install.sh
           python3 scripts/prepare-release.py \
@@ -95,7 +104,7 @@ jobs:
             --dist dist
       - name: Publish GitHub Release
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" dist/* --clobber
@@ -116,7 +125,7 @@ jobs:
       - name: Publish Homebrew formula to tap
         if: steps.homebrew_tap.outputs.enabled == 'true'
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
           GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         run: |
           formula_sha=""
@@ -142,11 +151,17 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: jimbobbennett/got@v0.1.1
+        with:
+          ref: ${{ inputs.release_tag || github.sha }}
+      - name: Configure Git credentials
+        run: gh auth setup-git
       - name: Update floating major version tag
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           if [[ "$RELEASE_TAG" =~ ^v([0-9]+)\.[0-9]+\.[0-9]+$ ]]; then
             MAJOR_TAG="v${BASH_REMATCH[1]}"
@@ -164,6 +179,8 @@ jobs:
             exit 0
           fi
 
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag --force --annotate "$MAJOR_TAG" "$RELEASE_TAG" \
             --message "Update $MAJOR_TAG to $RELEASE_TAG"
           git push --force origin "refs/tags/$MAJOR_TAG"
@@ -173,17 +190,21 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: jimbobbennett/got@v0.1.1
         with:
           ref: main
+      - name: Configure Git credentials
+        run: gh auth setup-git
       - name: Update README and documentation site
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: python3 scripts/update_action_version.py --version "$RELEASE_TAG"
       - name: Commit documentation version
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
           if git diff --quiet -- README.md docs/index.html; then
             echo "Documentation already references ${RELEASE_TAG}."
