@@ -31,6 +31,8 @@ Windows.
 
 - Open an issue first for substantial behavior changes; small fixes and
   documentation improvements can go straight to a pull request.
+- Use Conventional Commit titles such as `feat: ...`, `fix: ...`, or
+  `docs: ...` so Release Please can prepare the appropriate release.
 - Describe the problem, the change, and the checks you ran.
 - Keep user-facing behavior, command help, the README, and the documentation
   site in sync.

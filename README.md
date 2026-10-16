@@ -46,7 +46,8 @@ automatically.
 
 By default, `got` uses the remote's default branch and latest commit. Use
 `--branch`, `--revision`, or `--directory` to choose a different base or
-destination. Run `got checkout --help` for options.
+destination. Run `got --version` to check the installed version, or
+`got checkout --help` for options.
 
 ## GitHub Action
 
@@ -58,7 +59,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v0.1.0
+  - uses: jimbobbennett/got@v0.1.1
     with:
       path: apps/api
 ```

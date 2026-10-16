@@ -70,7 +70,7 @@ got push</code></pre>
           <p class="eyebrow">02 / CLI REFERENCE</p>
           <h2 id="commands-title">Git stays Git</h2>
           <p><code>got status</code>, <code>got add</code>, and <code>got commit</code> call through to Git. <code>got push</code> passes explicit arguments through; a bare push publishes the current work branch and sets its upstream on first push.</p>
-          <p>Run <code>got --help</code> for the overview, <code>got checkout --help</code> for checkout options, or <code>got help push</code> for push behavior.</p>
+          <p>Run <code>got --version</code> to check the installed version, <code>got --help</code> for the overview, <code>got checkout --help</code> for checkout options, or <code>got help push</code> for push behavior.</p>
         </div>
         <pre><code>got checkout &lt;remote&gt; [&lt;path&gt;] \
   [--branch &lt;branch&gt;] \
@@ -91,7 +91,7 @@ got push [git arguments...]</code></pre>
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v0.1.0
+  - uses: jimbobbennett/got@v0.1.1
     with:
       path: apps/api
       # Omit path to check out the entire repository

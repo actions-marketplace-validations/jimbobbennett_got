@@ -13,13 +13,17 @@ workflow to compile the Rust application, not as an installation method.
 
 ## Creating a release
 
-1. Set the package version in `Cargo.toml` and refresh `Cargo.lock` with
-   `cargo check`.
-2. Commit both files, then push a matching version tag, for example `v0.1.0`.
+1. Use [Conventional Commit](https://www.conventionalcommits.org/) messages
+   such as `feat: add checkout option` or `fix: handle missing Git`. Release
+   Please opens a release PR that updates `Cargo.toml`, `Cargo.lock`, and the
+   changelog. The CLI reports the Cargo package version with `got --version`.
+2. Review and merge the release PR. Release Please creates the version tag and
+   GitHub Release; `.github/workflows/release-please.yml` then dispatches the
+   packaging workflow for that tag.
 3. `.github/workflows/release.yml` builds each target, creates archives and
-   checksums, generates the Homebrew formula, and publishes them on a GitHub
-   Release. After publication, it updates the Action version in `README.md`
-   and `docs/index.html` to the exact release tag and moves the floating major
+   checksums, generates the Homebrew formula, and attaches them to the GitHub
+   Release. It also updates the Action version in `README.md` and
+   `docs/index.html` to the exact release tag and moves the floating major
    Action tag (for example, `v0`) to the latest stable release. Documentation
    deployment is handled by Cloudflare Workers Builds.
 4. The package declares the MIT license in `Cargo.toml` and includes the

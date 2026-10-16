@@ -77,6 +77,18 @@ fn command_help_describes_checkout_and_push_behavior() {
     assert!(String::from_utf8_lossy(&push_help.stdout).contains("create a pull request"));
 }
 
+#[test]
+fn version_flags_report_the_package_version() {
+    for flag in ["--version", "-V"] {
+        let output = Command::new(env!("CARGO_BIN_EXE_got"))
+            .arg(flag)
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+        assert_eq!(text(output), format!("got {}", env!("CARGO_PKG_VERSION")));
+    }
+}
+
 fn file_remote(path: &Path) -> String {
     let path = path.to_string_lossy().replace('\\', "/");
     if path.starts_with('/') {
