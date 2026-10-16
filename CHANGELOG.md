@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/jimbobbennett/got/compare/v0.2.0...v0.2.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* **release:** authenticate post-publish updates ([#11](https://github.com/jimbobbennett/got/issues/11)) ([aaa8598](https://github.com/jimbobbennett/got/commit/aaa859891871c15eeb5479c89666a7c03786e24e))
+
 ## [0.2.0](https://github.com/jimbobbennett/got/compare/v0.1.1...v0.2.0) (2026-10-16)
 
 
