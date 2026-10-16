@@ -59,7 +59,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: cloudless-ai/got@v0.2.1
+  - uses: cloudless-ai/got@v0.3.0
     with:
       path: apps/api
 ```
