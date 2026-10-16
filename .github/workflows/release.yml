@@ -37,7 +37,7 @@ jobs:
             platform: unix
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: jimbobbennett/got@v0.1.1
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
@@ -78,7 +78,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: jimbobbennett/got@v0.1.1
       - uses: actions/download-artifact@v4
         with:
           path: dist
@@ -143,9 +143,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
+      - uses: jimbobbennett/got@v0.1.1
       - name: Update floating major version tag
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -176,7 +174,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: jimbobbennett/got@v0.1.1
         with:
           ref: main
       - name: Update README and documentation site
