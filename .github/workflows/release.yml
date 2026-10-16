@@ -42,7 +42,7 @@ jobs:
             platform: unix
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: jimbobbennett/got@v0.1.1
+      - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.release_tag || github.sha }}
       - uses: dtolnay/rust-toolchain@stable
@@ -85,7 +85,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: jimbobbennett/got@v0.1.1
+      - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.release_tag || github.sha }}
       - uses: actions/download-artifact@v4
@@ -154,7 +154,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: jimbobbennett/got@v0.1.1
+      - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.release_tag || github.sha }}
       - name: Configure Git credentials
@@ -193,7 +193,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: jimbobbennett/got@v0.1.1
+      - uses: actions/checkout@v4
         with:
           ref: main
       - name: Configure Git credentials
