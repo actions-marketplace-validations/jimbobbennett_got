@@ -59,7 +59,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: jimbobbennett/got@v0.2.0
+  - uses: jimbobbennett/got@v0.2.1
     with:
       path: apps/api
 ```
