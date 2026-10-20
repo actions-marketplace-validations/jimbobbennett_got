@@ -36,7 +36,7 @@ jobs:
         shell: bash
         run: bash -n action/checkout.sh
       - name: Test folder checkout Action
-        uses: ./
+        uses: cloudless-ai/got@v0.3.0
         with:
           path: src
           directory: action-test
@@ -46,7 +46,7 @@ jobs:
           test -f action-test/src/main.rs
           test ! -e action-test/tests
       - name: Test full repository Action checkout
-        uses: ./
+        uses: cloudless-ai/got@v0.3.0
         with:
           directory: action-test-full
       - name: Verify full repository checkout contents
