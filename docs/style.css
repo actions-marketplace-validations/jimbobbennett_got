@@ -77,15 +77,19 @@ button:focus-visible {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
   color: var(--text);
   font-size: 1.35rem;
   font-weight: 800;
   text-decoration: none;
 }
 
-.brand span,
-.site-footer > span:first-child {
-  color: var(--green);
+.brand img,
+.site-footer img {
+  display: block;
+  width: 64px;
+  height: 64px;
 }
 
 nav {
