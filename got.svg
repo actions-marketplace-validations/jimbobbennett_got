@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title description">
+  <title id="title">got logo</title>
+  <desc id="description">The got wordmark preceded by a green terminal prompt on a dark green rounded panel.</desc>
+  <rect x="18" y="18" width="204" height="204" rx="28" fill="#17231c" stroke="#49634e" stroke-width="2"/>
+  <text x="120" y="145" text-anchor="middle" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="60" font-weight="700"><tspan fill="#9bf27f">&gt;</tspan><tspan dx="8" fill="#e2f0df">got</tspan></text>
+</svg>
