@@ -49,6 +49,8 @@ jobs:
         with:
           targets: ${{ matrix.target }}
       - name: Build binary
+        env:
+          RUSTFLAGS: ${{ matrix.platform == 'windows' && '-C target-feature=+crt-static' || '' }}
         run: cargo build --locked --release --target ${{ matrix.target }}
       - name: Package Unix archive
         if: matrix.platform == 'unix'
